@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Products;
 use Illuminate\Http\Request;
 
@@ -12,55 +13,20 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $product = Products::all() ;
-        return view ('products{category_id}', compact('product'));
-    }
+        $categories = Category::all() ;
+        $products = Products::orderBy('id','DESC')->paginate(10);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        return view ('products.products', compact ('categories','products'));
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+    /*Show Products by category */
+    public function ProductByCategory() {
+        return view ('products.products');
     }
+    /**show product detail */
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function show(){
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('products.show');
     }
 }
