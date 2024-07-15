@@ -14,19 +14,32 @@ class ProductsController extends Controller
     public function index()
     {
         $categories = Category::all() ;
-        $products = Products::orderBy('id','DESC')->paginate(10);
+        $products = Products::orderBy('id','DESC')->paginate(8);
 
         return view ('products.products', compact ('categories','products'));
 
     }
     /*Show Products by category */
-    public function ProductByCategory() {
-        return view ('products.products');
+    public function ProductByCategory($id = 0) {
+        $categories = Category::all() ;
+
+        $products = Products::where('category_id',$id)
+                    ->orderBy('id','DESC')->paginate(8);
+
+
+        return view ('products.products', compact ('categories','products'));
     }
     /**show product detail */
 
-    public function show(){
+    public function show(Products $product){
+        
+        //Affichage Produits similaires
 
-        return view('products.show');
+        $products = Products::where('category_id', $product->category_id)
+                            ->inRandomOrder()
+                            ->limit(4)
+                            ->get();
+
+        return view('products.show',compact ('product','products'));
     }
 }

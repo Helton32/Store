@@ -15,6 +15,7 @@
 <body>
     
     @include('layouts.store.header')
+    
         @yield('content')
     @include('layouts.store.footer')
 

@@ -6,9 +6,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 
 //*Affichage des produits */
-Route::get('categories', [CategoryController::class, 'index'])->name('categories');
 Route::get('/', [ProductsController::class, 'index'])->name('product');
-Route::get('/product/{id}', [ProductsController::class, 'show'])->name('product.detail');
+Route::get('/product/{product}', [ProductsController::class, 'show'])->name('product.detail');
 Route::get('/product/category/{id}', [ProductsController::class, 'ProductByCategory'])->name('product.category');
 /** */
 /**Gestion dashboard */
