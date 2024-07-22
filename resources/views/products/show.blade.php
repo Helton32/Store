@@ -151,8 +151,17 @@
                   </label>
                 </div>
               </fieldset>
+              
+              <a href={{route('favoris.ajouter',$product )}} class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              @if (isset($favoris))
+              <i class="ri-heart-fill"></i>
+              @else
+              <i class="ri-heart-line"></i>
 
-              <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to bag</button>
+              @endif
+              </a>
+              
+              <a href={{route('panier.ajouter',$product)}} class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to bag</a>
             </form>
           </section>
         </div>

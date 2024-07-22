@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favoris;
 use App\Models\Category;
 use App\Models\Products;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class ProductsController extends Controller
         $categories = Category::all() ;
 
         $products = Products::where('category_id',$id)
-                    ->orderBy('id','DESC')->paginate(8);
+                    ->orderBy('id','DESC')->paginate(1);
 
 
         return view ('products.products', compact ('categories','products'));
@@ -34,12 +35,25 @@ class ProductsController extends Controller
     public function show(Products $product){
         
         //Affichage Produits similaires
-
         $products = Products::where('category_id', $product->category_id)
-                            ->inRandomOrder()
-                            ->limit(4)
-                            ->get();
+        ->inRandomOrder()
+        ->limit(4)
+        ->get();
+        if (isset(auth()->user()->id)){
+            $favoris= Favoris::where('user_id',auth()->user()->id)->where('product_id',$product->id)->first() ;}
+        else{
+            $favoris=null;
+            }   
+           
 
-        return view('products.show',compact ('product','products'));
+        return view('products.show',compact ('product','products','favoris'));
+    }
+    public function boutique()
+    {
+        $categories = Category::all() ;
+        $products = Products::orderBy('id','DESC')->paginate(8);
+
+        return view ('boutique', compact ('categories','products'));
+
     }
 }
